@@ -1,0 +1,44 @@
+{
+  "name": "@thebigrick/catalyst-cms-layer",
+  "version": "0.2.0",
+  "description": "CMS layer for Catalyst",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "type": "module",
+  "scripts": {
+    "setup": "npx tsx src/scripts/setup.ts",
+    "lint": "eslint . --ext .ts,.tsx,.js,.cjs --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "lint-fix": "eslint . --ext .ts,.js,.cjs --fix"
+  },
+  "author": "Riccardo Tempesta <riccardo.tempesta@bigcommerce.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@bigcommerce/catalyst-client": "workspace:*",
+    "@bigcommerce/catalyst-core": "workspace:*",
+    "@thebigrick/catalyst-pluginizr": "workspace:*",
+    "clsx": "^2.1.1",
+    "html-react-parser": "^5.2.2"
+  },
+  "peerDependencies": {
+    "next": "~15",
+    "next-intl": "~3",
+    "react": "~19"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": false
+    },
+    "react": {
+      "optional": false
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.6",
+    "@types/react": "^19.0.1",
+    "eslint": "^8.7.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}
