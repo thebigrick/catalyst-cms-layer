@@ -34,7 +34,7 @@ export interface IBlockGridData {
   blocks: IBlock[];
 }
 export interface IBlockImageData {
-  src: string;
+  src?: string;
   title: string;
   width?: number;
   height?: number;

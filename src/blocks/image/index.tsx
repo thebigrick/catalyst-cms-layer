@@ -20,15 +20,17 @@ const Image: React.FC<IImageProps> = (props) => {
 
   return (
     <FieldWrapper blockProps={props} fieldId="src">
-      <NextImage
-        alt={title}
-        className={clsx('w-full', boxStyle.className)}
-        height={height ?? 800}
-        sizes="100%"
-        src={src}
-        style={boxStyle.styles}
-        width={width ?? 800}
-      />
+      {!!src && (
+        <NextImage
+          alt={title}
+          className={clsx('w-full', boxStyle.className)}
+          height={height ?? 800}
+          sizes="100%"
+          src={src}
+          style={boxStyle.styles}
+          width={width ?? 800}
+        />
+      )}
     </FieldWrapper>
   );
 };

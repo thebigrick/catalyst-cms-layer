@@ -5,7 +5,7 @@ import enableDraftMode from "../service/enable-draft-mode";
 
 export const GET = async (
   request: NextRequest,
-  { params }: { params: { adapter: string; } },
+  { params }: { params: Promise<{ adapter: string; }> },
 ) => {
   const { adapter } = await params;
   const pageId = request.nextUrl.searchParams.get('id');
