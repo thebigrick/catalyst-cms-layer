@@ -1,36 +1,33 @@
 import React, { PropsWithChildren } from 'react';
 
 import getAdapter from '../service/get-adapter';
+import getWrapperPropsProvider from '../service/get-wrapper-props-provider';
 import { IBlockProps } from '../types';
 
 export interface IFieldWrapperProps {
-  blockProps: IBlockProps<any>;
+  blockProps: IBlockProps;
   fieldId: string;
+  fallbackDiv?: boolean;
 }
 
 const FieldWrapper: React.FC<PropsWithChildren<IFieldWrapperProps>> = ({
   children,
   fieldId,
-  blockProps: {
-    locale,
-    block: { id },
-    isDraftEnabled,
-    adapterCode,
-  },
+  blockProps: { block, context },
+  fallbackDiv = false,
 }) => {
-  const adapter = getAdapter(adapterCode);
+  const adapter = getAdapter(context.adapterCode);
 
   if (!adapter.FieldWrapper) {
-    return children;
+    if (!fallbackDiv) {
+      return children;
+    }
+
+    return <div {...getWrapperPropsProvider(block, context, fieldId)}>{children}</div>;
   }
 
   return (
-    <adapter.FieldWrapper
-      blockId={id}
-      fieldId={fieldId}
-      isDraftEnabled={isDraftEnabled}
-      locale={locale}
-    >
+    <adapter.FieldWrapper block={block} context={context} fieldId={fieldId}>
       {children}
     </adapter.FieldWrapper>
   );

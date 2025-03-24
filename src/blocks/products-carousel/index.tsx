@@ -10,15 +10,20 @@ export interface IProductsCarouselProps extends IBlockProps<IBox & IBlockProduct
 const ProductsCarousel: React.FC<IProductsCarouselProps> = async (props) => {
   const {
     block: {
-      data: { productIds },
+      data: { productIds, showScrollbar, showButtons },
     },
   } = props;
 
   const products = await getProductsList(productIds);
 
   return (
-    <FieldWrapper blockProps={props} fieldId="products">
-      <VibesProductsCarousel hideOverflow={false} products={products} />
+    <FieldWrapper blockProps={props} fallbackDiv={true} fieldId="products">
+      <VibesProductsCarousel
+        hideOverflow={false}
+        products={products}
+        showButtons={showButtons}
+        showScrollbar={showScrollbar}
+      />
     </FieldWrapper>
   );
 };

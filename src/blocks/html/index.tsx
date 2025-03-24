@@ -18,7 +18,7 @@ const Html: React.FC<IProductsCarouselProps> = (props) => {
   }
 
   return (
-    <FieldWrapper blockProps={props} fieldId="html">
+    <FieldWrapper blockProps={props} fallbackDiv={true} fieldId="html">
       {parse(html)}
     </FieldWrapper>
   );

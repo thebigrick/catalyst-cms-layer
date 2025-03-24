@@ -2,14 +2,19 @@ import React, { PropsWithChildren } from 'react';
 
 export type IGetPageIdBySlugAdapter = (
   slug: string,
-  locale: string,
-  isPreview: boolean,
+  context: ICmsContext,
 ) => Promise<string | null>;
 export type IGetPageByIdAdapter = (
   id: string,
-  locale: string,
-  isPreview: boolean,
+  context: ICmsContext,
 ) => Promise<IBlock<IPageData> | null>;
+
+export interface ICmsContext {
+  rootEntityId: string;
+  adapterCode: string;
+  locale: string;
+  isPreview: boolean;
+}
 
 export interface IBlock<TData = Record<string, any>> {
   type: string;
@@ -33,6 +38,11 @@ export interface IBlockGridData {
   gap: number;
   blocks: IBlock[];
 }
+export interface IBlockCarouselData {
+  blocks: IBlock[];
+  showButtons?: boolean;
+  showScrollbar?: boolean;
+}
 export interface IBlockImageData {
   src?: string;
   title: string;
@@ -47,35 +57,48 @@ export interface IBlockRichTextData {
 }
 export interface IBlockProductsCarouselData {
   productIds: number[];
+  showButtons?: boolean;
+  showScrollbar?: boolean;
 }
 
 export interface IRichTextRendererProps<TDocument = any> {
   richText: TDocument;
 }
-export interface ICmsContextAdapter {
-  locale: string;
-  isDraftEnabled: boolean;
+export interface ICmsRootWrapperAdapter {
+  context: ICmsContext;
 }
 export interface IFieldWrapperAdapter {
-  locale: string;
-  isDraftEnabled: boolean;
-  blockId: string;
+  context: ICmsContext;
+  block: IBlock;
   fieldId: string;
 }
+
+export type IFieldWrapperPropsProvider = (
+  block: IBlock,
+  fieldId: string,
+  context: ICmsContext,
+) => Record<string, unknown>;
 
 export interface ICmsAdapter {
   getPageIdBySlug: IGetPageIdBySlugAdapter;
   getPageById: IGetPageByIdAdapter;
+
+  // Component to render richText
   RichTextRenderer?: React.FC<IRichTextRendererProps>;
-  Context?: React.FC<PropsWithChildren<ICmsContextAdapter>>;
+
+  // Optional CMS context provider
+  CmsRootWrapper?: React.FC<PropsWithChildren<ICmsRootWrapperAdapter>>;
+
+  // Optional field wrapper component
   FieldWrapper?: React.FC<PropsWithChildren<IFieldWrapperAdapter>>;
+
+  // Optional fields wrapper props provider (usually an alternative to FieldWrapper)
+  fieldWrapperPropsProvider?: IFieldWrapperPropsProvider;
 }
 
-export interface IBlockProps<TData = Record<string, unknown>> {
+export interface IBlockProps<TData = Record<string, any>> {
   block: IBlock<TData>;
-  adapterCode: string;
-  locale: string;
-  isDraftEnabled: boolean;
+  context: ICmsContext;
 }
 
 export type ICmsComponentsRegistry = Record<string, React.FC<any>>;

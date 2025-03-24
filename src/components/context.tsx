@@ -1,28 +1,18 @@
 import React, { PropsWithChildren } from 'react';
 
-import { ICmsAdapter } from '../types';
+import { ICmsAdapter, ICmsContext } from '../types';
 
 export interface IContextProps {
   adapter: ICmsAdapter;
-  locale: string;
-  isDraftEnabled: boolean;
+  context: ICmsContext;
 }
 
-const Context: React.FC<PropsWithChildren<IContextProps>> = ({
-  children,
-  adapter,
-  locale,
-  isDraftEnabled,
-}) => {
-  if (!adapter.Context) {
+const Context: React.FC<PropsWithChildren<IContextProps>> = ({ children, adapter, context }) => {
+  if (!adapter.CmsRootWrapper) {
     return children;
   }
 
-  return (
-    <adapter.Context isDraftEnabled={isDraftEnabled} locale={locale}>
-      {children}
-    </adapter.Context>
-  );
+  return <adapter.CmsRootWrapper context={context}>{children}</adapter.CmsRootWrapper>;
 };
 
 export default Context;

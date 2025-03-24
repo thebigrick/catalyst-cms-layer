@@ -1,3 +1,4 @@
+import Carousel from '../blocks/carousel';
 import Grid from '../blocks/grid';
 import Html from '../blocks/html';
 import Image from '../blocks/image';
@@ -11,6 +12,7 @@ const BlocksRegistry: ICmsComponentsRegistry = {
   Html,
   Image,
   Grid,
+  Carousel,
 };
 
 export default BlocksRegistry;

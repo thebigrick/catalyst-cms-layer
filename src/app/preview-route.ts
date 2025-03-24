@@ -1,4 +1,3 @@
-import {cookies, draftMode} from 'next/headers';
 import { redirect } from 'next/navigation';
 import {NextRequest, NextResponse} from 'next/server';
 import enableDraftMode from "../service/enable-draft-mode";

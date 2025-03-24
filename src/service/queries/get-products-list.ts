@@ -6,7 +6,7 @@ import { revalidate } from '@bigcommerce/catalyst-core/client/revalidate-target'
 import { ProductCardFragment } from '@bigcommerce/catalyst-core/components/product-card/fragment';
 import { productCardTransformer } from '@bigcommerce/catalyst-core/data-transformers/product-card-transformer';
 import { getPreferredCurrencyCode } from '@bigcommerce/catalyst-core/lib/currency';
-import { CardProduct } from '@vibe/primitives/product-card';
+import { CardProduct } from '@current-vibe/primitives/product-card';
 import { getFormatter } from 'next-intl/server';
 import { cache } from 'react';
 
@@ -44,8 +44,11 @@ const getProductsList = cache(async (entityIds: number[]): Promise<CardProduct[]
     fetchOptions: customerAccessToken ? { cache: 'no-store' } : { next: { revalidate } },
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  const products = productCardTransformer(removeEdgesAndNodes(response.data.site.products), format);
+  const products = productCardTransformer(
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    removeEdgesAndNodes((response.data as any).site.products),
+    format,
+  );
 
   return products.sort((a, b) => entityIds.indexOf(Number(a.id)) - entityIds.indexOf(Number(b.id)));
 });

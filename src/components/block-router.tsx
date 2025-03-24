@@ -1,33 +1,19 @@
 import React from 'react';
 
 import getBlockByType from '../service/get-block-by-type';
-import { IBlock } from '../types';
+import { IBlock, ICmsContext } from '../types';
 
 export interface IBlockRouterProps {
   block: IBlock;
-  adapterCode: string;
-  locale: string;
-  isDraftEnabled: boolean;
+  context: ICmsContext;
 }
 
-const BlockRouter: React.FC<IBlockRouterProps> = ({
-  block,
-  adapterCode,
-  locale,
-  isDraftEnabled,
-}) => {
+const BlockRouter: React.FC<IBlockRouterProps> = ({ block, context }) => {
   const { type } = block;
 
   const Component = getBlockByType(type);
 
-  return (
-    <Component
-      adapterCode={adapterCode}
-      block={block}
-      isDraftEnabled={isDraftEnabled}
-      locale={locale}
-    />
-  );
+  return <Component block={block} context={context} />;
 };
 
 export default BlockRouter;

@@ -1,11 +1,13 @@
 import clsx from 'clsx';
 import React from 'react';
 
+import Box from '../../components/box';
 import ChildrenBlocks from '../../components/children-block';
 import FieldWrapper from '../../components/field-wrapper';
-import { IBlockGridData, IBlockProps } from '../../types';
+import getWrapperPropsProvider from '../../service/get-wrapper-props-provider';
+import { IBlockGridData, IBlockProps, IBox } from '../../types';
 
-export interface IGridProps extends IBlockProps<IBlockGridData> {}
+export interface IGridProps extends IBlockProps<IBox & IBlockGridData> {}
 
 const gridColsMapping: Record<number, string> = {
   1: 'grid-cols-1',
@@ -63,9 +65,8 @@ const gapMapping: Record<number, string> = {
 
 const Grid: React.FC<IGridProps> = (props) => {
   const {
-    adapterCode,
-    locale,
-    isDraftEnabled,
+    context,
+    block,
     block: {
       data: { columns, blocks, mdColumns, lgColumns, gap },
     },
@@ -77,15 +78,14 @@ const Grid: React.FC<IGridProps> = (props) => {
   const gapClass = gapMapping[gap] || '';
 
   return (
-    <FieldWrapper blockProps={props}>
-      <div className={clsx('grid', baseColsClass, mdColsClass, lgColsClass, gapClass)}>
-        <ChildrenBlocks
-          adapterCode={adapterCode}
-          blocks={blocks}
-          isDraftEnabled={isDraftEnabled}
-          locale={locale}
-        />
-      </div>
+    <FieldWrapper blockProps={props} fieldId="blocks">
+      <Box
+        block={block}
+        className={clsx('grid', baseColsClass, mdColsClass, lgColsClass, gapClass)}
+        wrapperProps={getWrapperPropsProvider(block, context, 'blocks')}
+      >
+        <ChildrenBlocks blocks={blocks} context={context} />
+      </Box>
     </FieldWrapper>
   );
 };
