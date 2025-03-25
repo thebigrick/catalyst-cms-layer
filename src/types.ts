@@ -2,12 +2,20 @@ import React, { PropsWithChildren } from 'react';
 
 export type IGetPageIdBySlugAdapter = (
   slug: string,
-  context: ICmsContext,
+  context: Omit<ICmsContext, 'rootEntityId'>,
 ) => Promise<string | null>;
 export type IGetPageByIdAdapter = (
   id: string,
-  context: ICmsContext,
-) => Promise<IBlock<IPageData> | null>;
+  context: Omit<ICmsContext, 'rootEntityId'>,
+) => Promise<IBlock<IBlockPageData> | null>;
+export type IGetCategoryBySlugAdapter = (
+  slug: number, // BigCommerce ID
+  context: Omit<ICmsContext, 'rootEntityId'>,
+) => Promise<IBlock<IBlockCategoryPageData> | null>;
+export type IGetProductBySlugAdapter = (
+  slug: number, // BigCommerce ID
+  context: Omit<ICmsContext, 'rootEntityId'>,
+) => Promise<IBlock<IBlockProductPageData> | null>;
 
 export interface ICmsContext {
   rootEntityId: string;
@@ -22,15 +30,23 @@ export interface IBlock<TData = Record<string, any>> {
   data: TData;
 }
 
-export interface IPageData {
-  id: string;
+// Block data interfaces
+export interface IBlockPageData {
   title: string;
   seoDescription?: string;
   seoKeywords?: string;
   slug: string;
   blocks: IBlock[];
 }
-
+export interface IBlockCategoryPageData {
+  categoryId: number;
+  header: IBlock[];
+}
+export interface IBlockProductPageData {
+  productId: number;
+  header: IBlock[];
+  description: IBlock[];
+}
 export interface IBlockGridData {
   columns: number;
   mdColumns: number;
@@ -82,6 +98,8 @@ export type IFieldWrapperPropsProvider = (
 export interface ICmsAdapter {
   getPageIdBySlug: IGetPageIdBySlugAdapter;
   getPageById: IGetPageByIdAdapter;
+  getCategoryBySlug: IGetCategoryBySlugAdapter;
+  getProductBySlug: IGetProductBySlugAdapter;
 
   // Component to render richText
   RichTextRenderer?: React.FC<IRichTextRendererProps>;

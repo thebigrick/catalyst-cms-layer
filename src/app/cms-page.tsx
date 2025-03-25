@@ -5,6 +5,7 @@ import NotFound from '@bigcommerce/catalyst-core/app/[locale]/not-found';
 import Context from '../components/context';
 import { draftMode } from 'next/headers';
 import {ICmsContext} from "../types";
+import RootEntityRender from "../components/root-entity-render";
 
 export interface CmsPageProps {
   params: Promise<{ adapter: string; id: string; locale: string }>;
@@ -16,8 +17,8 @@ export default async function CmsPage(props: CmsPageProps) {
   const { isEnabled: isPreview } = await draftMode();
 
   const context: ICmsContext = { locale, isPreview, adapterCode, rootEntityId: id };
-
   const adapter = getAdapter(adapterCode);
+
   const page = await adapter.getPageById(id, context);
 
   if (!page) {
@@ -27,9 +28,7 @@ export default async function CmsPage(props: CmsPageProps) {
   return (
     <section className="@container">
       <div className="mx-auto w-full max-w-screen-2xl px-4 py-10 @xl:px-6 @xl:py-14 @4xl:px-8 @4xl:py-20">
-        <Context adapter={adapter} context={context}>
-          <ChildrenBlocks blocks={page.data.blocks} context={context} />
-        </Context>
+        <RootEntityRender context={context} blocks={page.data.blocks} adapterCode={adapterCode} />
       </div>
     </section>
   );

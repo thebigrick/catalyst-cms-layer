@@ -21,8 +21,6 @@ const Carousel: React.FC<ICarouselProps> = (props) => {
     },
   } = props;
 
-  console.log('showScrollbar', props);
-
   return (
     <VibeCarousel hideOverflow={true}>
       <CarouselContent className="mb-10">
