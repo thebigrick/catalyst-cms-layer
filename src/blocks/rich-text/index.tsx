@@ -4,7 +4,7 @@ import React from 'react';
 
 import Box from '../../components/box';
 import FieldWrapper from '../../components/field-wrapper';
-import getAdapter from '../../service/get-adapter';
+import getComponentsAdapter from '../../service/get-components-adapter';
 import getWrapperPropsProvider from '../../service/get-wrapper-props-provider';
 import { IBlockProps, IBlockRichTextData, IBox } from '../../types';
 
@@ -19,7 +19,7 @@ const RichText: React.FC<IRichTextProps> = (props) => {
     },
   } = props;
 
-  const Renderer = getAdapter(context.adapterCode).RichTextRenderer;
+  const Renderer = getComponentsAdapter(context.adapterCode).RichTextRenderer;
 
   if (!Renderer) return null;
 

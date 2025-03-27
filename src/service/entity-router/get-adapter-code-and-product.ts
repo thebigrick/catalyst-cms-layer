@@ -1,5 +1,5 @@
-import adapters from '../../adapters';
-import { IBlock, IBlockCategoryPageData, IBlockProductPageData, ICmsContext } from '../../types';
+import dataAdapters from '../../data-adapters';
+import { IBlock, IBlockProductPageData, ICmsContext } from '../../types';
 
 export interface IAdapterCodeAndProduct {
   adapterCode: string;
@@ -10,7 +10,7 @@ const getAdapterCodeAndProduct = async (
   slug: number,
   context: Omit<ICmsContext, 'adapterCode' | 'rootEntityId'>,
 ): Promise<IAdapterCodeAndProduct | null> => {
-  for (const [adapterCode, adapter] of Object.entries(adapters)) {
+  for (const [adapterCode, adapter] of Object.entries(dataAdapters)) {
     const adapterContext = {
       ...context,
       adapterCode,

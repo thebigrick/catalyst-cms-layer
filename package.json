@@ -22,9 +22,9 @@
     "html-react-parser": "^5.2.2"
   },
   "peerDependencies": {
-    "next": "~15",
-    "next-intl": "~3",
-    "react": "~19"
+    "next": "*",
+    "next-intl": "*",
+    "react": "*"
   },
   "peerDependenciesMeta": {
     "next": {

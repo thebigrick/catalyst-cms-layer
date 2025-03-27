@@ -1,9 +1,9 @@
 import React, { PropsWithChildren } from 'react';
 
-import { ICmsAdapter, ICmsContext } from '../types';
+import { ICmsComponentsAdapter, ICmsContext } from '../types';
 
 export interface IContextProps {
-  adapter: ICmsAdapter;
+  adapter: ICmsComponentsAdapter;
   context: ICmsContext;
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import getAdapter from '../service/get-adapter';
+import getComponentsAdapter from '../service/get-components-adapter';
+import getDataAdapter from '../service/get-data-adapter';
 import { IBlock, ICmsContext } from '../types';
 
 import ChildrenBlocks from './children-block';
@@ -13,7 +14,7 @@ export interface IRootEntityRenderProps {
 }
 
 const RootEntityRender: React.FC<IRootEntityRenderProps> = ({ adapterCode, context, blocks }) => {
-  const adapter = getAdapter(adapterCode);
+  const adapter = getComponentsAdapter(adapterCode);
 
   return (
     <Context adapter={adapter} context={context}>

@@ -3,7 +3,6 @@ import { PluginComponentWrapper } from '@thebigrick/catalyst-pluginizr';
 import { draftMode } from 'next/headers';
 import React from 'react';
 
-import getAdapterCodeAndCategory from '../service/entity-router/get-adapter-code-and-category';
 import getAdapterCodeAndProduct from '../service/entity-router/get-adapter-code-and-product';
 import { ICmsContext } from '../types';
 

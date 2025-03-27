@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 
-import getAdapter from '../service/get-adapter';
+import getComponentsAdapter from '../service/get-components-adapter';
 import getWrapperPropsProvider from '../service/get-wrapper-props-provider';
 import { IBlockProps } from '../types';
 
@@ -16,7 +16,7 @@ const FieldWrapper: React.FC<PropsWithChildren<IFieldWrapperProps>> = ({
   blockProps: { block, context },
   fallbackDiv = false,
 }) => {
-  const adapter = getAdapter(context.adapterCode);
+  const adapter = getComponentsAdapter(context.adapterCode);
 
   if (!adapter.FieldWrapper) {
     if (!fallbackDiv) {

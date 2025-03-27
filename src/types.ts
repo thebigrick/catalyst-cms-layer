@@ -95,12 +95,17 @@ export type IFieldWrapperPropsProvider = (
   context: ICmsContext,
 ) => Record<string, unknown>;
 
-export interface ICmsAdapter {
-  getPageIdBySlug: IGetPageIdBySlugAdapter;
+export interface ICmsDataAdapter {
   getPageById: IGetPageByIdAdapter;
   getCategoryBySlug: IGetCategoryBySlugAdapter;
   getProductBySlug: IGetProductBySlugAdapter;
+}
 
+export interface ICmsEdgeDataAdapter {
+  getPageIdBySlug: IGetPageIdBySlugAdapter;
+}
+
+export interface ICmsComponentsAdapter {
   // Component to render richText
   RichTextRenderer?: React.FC<IRichTextRendererProps>;
 
@@ -114,12 +119,12 @@ export interface ICmsAdapter {
   fieldWrapperPropsProvider?: IFieldWrapperPropsProvider;
 }
 
-export interface IBlockProps<TData = Record<string, any>> {
+export interface IBlockProps<TData = any> {
   block: IBlock<TData>;
   context: ICmsContext;
 }
 
-export type ICmsComponentsRegistry = Record<string, React.FC<any>>;
+export type ICmsComponentsRegistry = Record<string, React.FC<IBlockProps>>;
 
 export interface IBox {
   margin?: string;

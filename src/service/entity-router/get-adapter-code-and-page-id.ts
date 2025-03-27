@@ -1,4 +1,4 @@
-import adapters from '../../adapters';
+import edgeDataAdapters from '../../edge-data-adapters';
 import { ICmsContext } from '../../types';
 
 export interface IAdapterCodeAndPageId {
@@ -10,7 +10,7 @@ const getAdapterCodeAndPageId = async (
   slug: string,
   context: Omit<ICmsContext, 'adapterCode' | 'rootEntityId'>,
 ): Promise<IAdapterCodeAndPageId | null> => {
-  for (const [adapterCode, adapter] of Object.entries(adapters)) {
+  for (const [adapterCode, adapter] of Object.entries(edgeDataAdapters)) {
     const adapterContext = {
       ...context,
       adapterCode,

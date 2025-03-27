@@ -1,5 +1,5 @@
 import React from 'react';
-import getAdapter from '../service/get-adapter';
+import getDataAdapter from '../service/get-data-adapter';
 import ChildrenBlocks from '../components/children-block';
 import NotFound from '@bigcommerce/catalyst-core/app/[locale]/not-found';
 import Context from '../components/context';
@@ -17,7 +17,7 @@ export default async function CmsPage(props: CmsPageProps) {
   const { isEnabled: isPreview } = await draftMode();
 
   const context: ICmsContext = { locale, isPreview, adapterCode, rootEntityId: id };
-  const adapter = getAdapter(adapterCode);
+  const adapter = getDataAdapter(adapterCode);
 
   const page = await adapter.getPageById(id, context);
 
@@ -40,7 +40,7 @@ export const generateMetadata = async ({ params }: CmsPageProps) => {
 
   const context: ICmsContext = { locale, isPreview, adapterCode, rootEntityId: id };
 
-  const adapter = getAdapter(adapterCode);
+  const adapter = getDataAdapter(adapterCode);
   const page = await adapter.getPageById(id, context);
 
   return {

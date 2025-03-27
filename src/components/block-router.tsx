@@ -1,7 +1,7 @@
 import React from 'react';
 
 import getBlockByType from '../service/get-block-by-type';
-import { IBlock, ICmsContext } from '../types';
+import { IBlock, IBlockProps, ICmsContext } from '../types';
 
 export interface IBlockRouterProps {
   block: IBlock;
