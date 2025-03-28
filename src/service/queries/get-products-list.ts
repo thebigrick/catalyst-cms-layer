@@ -6,7 +6,7 @@ import { revalidate } from '@bigcommerce/catalyst-core/client/revalidate-target'
 import { ProductCardFragment } from '@bigcommerce/catalyst-core/components/product-card/fragment';
 import { productCardTransformer } from '@bigcommerce/catalyst-core/data-transformers/product-card-transformer';
 import { getPreferredCurrencyCode } from '@bigcommerce/catalyst-core/lib/currency';
-import { CardProduct } from '@current-vibe/primitives/product-card';
+import { Product } from '@current-vibe/primitives/product-card';
 import { getFormatter } from 'next-intl/server';
 import { cache } from 'react';
 
@@ -27,7 +27,7 @@ export const ProductsQuery = graphql(
   [ProductCardFragment],
 );
 
-const getProductsList = cache(async (entityIds: number[]): Promise<CardProduct[]> => {
+const getProductsList = cache(async (entityIds: number[]): Promise<Product[]> => {
   const customerAccessToken = await getSessionCustomerAccessToken();
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const currencyCode = await getPreferredCurrencyCode();

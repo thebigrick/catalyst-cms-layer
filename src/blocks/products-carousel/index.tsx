@@ -1,4 +1,4 @@
-import { ProductsCarousel as VibesProductsCarousel } from '@current-vibe/primitives/products-carousel';
+import { ProductCarousel as VibesProductCarousel } from '@current-vibe/sections/product-carousel';
 import React from 'react';
 
 import FieldWrapper from '../../components/field-wrapper';
@@ -18,7 +18,7 @@ const ProductsCarousel: React.FC<IProductsCarouselProps> = async (props) => {
 
   return (
     <FieldWrapper blockProps={props} fallbackDiv={true} fieldId="products">
-      <VibesProductsCarousel
+      <VibesProductCarousel
         hideOverflow={false}
         products={products}
         showButtons={showButtons}
